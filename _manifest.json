@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "id": "github.cateye.mai-cross-chat-recall",
+  "version": "0.3.0",
+  "name": "跨聊私聊回忆",
+  "description": "让 bot 在群聊中能感知与指定群友的私聊记录：按可配置的时机（planner 触发 / 消息推进 / 触发回复）扫描群内活跃用户与 bot 的私聊，把满足条件的私聊内容交给 LLM 总结入库（插件自建 SQLite），并在群聊的 planner 与 reply 请求中按需把私聊概括（含起止时间、对象、概括正文）注入到第一条 SystemMessageItem 之后。支持群/用户黑白名单、重新总结队列、总结 TTL 淘汰；提供 /ccr debug test（下一次 planner/reply 强制注入发起者的私聊回忆）与 /ccr clean（清空总结库）命令。另提供 LLM 工具 recall_private_chat：bot 可按用户昵称主动召回当前会话上下文中某位群友的私聊概括，召回成功后在该用户可配置的粘性时间内继续随 reply 注入（仅在用户明确要求回忆私聊内容时调用）。",
+  "author": {
+    "name": "cateye",
+    "url": "https://github.com/cateyemizuki"
+  },
+  "license": "MIT",
+  "urls": {
+    "repository": "https://github.com/cateyemizuki/cateye_mai_cross-chat_recall"
+  },
+  "host_application": {
+    "min_version": "1.2.0",
+    "max_version": "1.99.99"
+  },
+  "sdk": {
+    "min_version": "2.5.0",
+    "max_version": "2.99.99"
+  },
+  "dependencies": [],
+  "capabilities": [
+    "send.text",
+    "chat.get_all_streams",
+    "chat.get_stream_by_user_id",
+    "message.get_recent",
+    "message.get_by_time_in_chat",
+    "message.get_by_id",
+    "llm.generate",
+    "config.get"
+  ],
+  "i18n": {
+    "default_locale": "zh-CN",
+    "supported_locales": ["zh-CN"]
+  },
+  "plugin_type": "extension"
+}
